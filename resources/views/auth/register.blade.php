@@ -22,30 +22,33 @@
                         @csrf
 
                         <div class="mb-2">
-                            <input id="name" placeholder="your name" type="text" class="text-xl w-3/5 p-3 border rounded @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <input id="name" placeholder="your name" type="text" class="text-xl w-3/5 p-3 border rounded @error('name') border-red-600 @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                             @error('name')
                                 <span class="text-red-600 text-xs" role="alert">
+                                    <br>
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
 
                         <div class="mb-2">
-                            <input id="email" type="email" placeholder="you@example.com" class="text-xl w-3/5 p-3 border rounded @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            <input id="email" type="email" placeholder="you@example.com" class="text-xl w-3/5 p-3 border rounded @error('email') border-red-600 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                             @error('email')
                                 <span class="text-red-600 text-xs" role="alert">
+                                    <br>
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
 
                         <div class="mb-2">
-                            <input id="password" type="password" placeholder="password" class="text-xl w-3/5 p-3 border rounded @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            <input id="password" type="password" placeholder="password" class="text-xl w-3/5 p-3 border rounded @error('password') border-red-600 @enderror" name="password" required autocomplete="new-password">
 
                             @error('password')
                                 <span class="text-red-600 text-xs" role="alert">
+                                    <br>
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror

@@ -26,11 +26,12 @@
                                 type="email"
                                 name="email"
                                 placeholder="you@example.com"
-                                class="text-xl w-3/5 p-3 border rounded @error('email') is-invalid @enderror"
+                                class="text-xl w-3/5 p-3 border rounded @error('email') border-red-600 @enderror"
                                 value="{{ old('email') }}" required autocomplete="email" autofocus
                             />
 
                             @error('email')
+                                <br>
                                 <span class="text-red-600 text-xs" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -42,12 +43,13 @@
                                 id="password" 
                                 type="password"
                                 name="password"
-                                class="text-xl w-3/5 p-3 border rounded @error('password') is-invalid @enderror"
+                                class="text-xl w-3/5 p-3 border rounded @error('password') border-red-600 @enderror"
                                 placeholder="パスワード"
                                 required autocomplete="current-password"
                             />
 
                             @error('password')
+                                <br>
                                 <span class="text-red-600 text-xs" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
