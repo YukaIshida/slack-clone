@@ -46,5 +46,10 @@ admin / admin
 laravel baseをベースに以下を追加
 - timezoneを日本時間
 - ログイン機能追加
+- Tailwindcss導入
 
-※ .env.exampleはリポジトリごとに書き換える
+※ Tailwindcssを使用する場合は以下ファイルのbootstrapを無効にし、bootstrapを使用する場合はTailwindcssを無効にする。
+```
+resources/sass/app.scss
+```
+※ .env.exampleはリポジトリごとに書き換えること
