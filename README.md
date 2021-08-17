@@ -40,3 +40,11 @@ http://127.0.0.1:40050/admin
 
 admin / admin
 ```
+
+### laravel-baseについて
+
+laravel baseをベースに以下を追加
+- timezoneを日本時間
+- ログイン機能追加
+
+※ .env.exampleはリポジトリごとに書き換える
