@@ -1,7 +1,84 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="flex flex-col h-screen">
+    <header class="flex justify-between p-4 border-b items-center">
+        <h1 class="font-semibold text-xl leading-tight">Slack Clone</h1>
+        <button class="py-1 px-4 border-2 border-green-800 rounded">
+            <a href="{{ route('register') }}">ユーザー登録</a>
+        </button>
+    </header>
+    <div class="bg-gray-100 flex-auto">
+        <div class="flex justify-center mt-16">
+            <div class="w-2/5 border bg-white">
+                <div class="my-12 text-center">
+                    <h2 class="text-4xl font-bold">ログイン</h2>
+                    <p class="my-4">
+                        <span class="font-semibold">メールアドレス</span>と
+                        <span class="font-semibold">パスワード</span>を入力してください。
+                    </p>
+
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-2">
+                            <input
+                                id="email" 
+                                type="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                class="text-xl w-3/5 p-3 border rounded @error('email') is-invalid @enderror"
+                                value="{{ old('email') }}" required autocomplete="email" autofocus
+                            />
+
+                            @error('email')
+                                <span class="text-red-600 text-xs" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <input
+                                id="password" 
+                                type="password"
+                                name="password"
+                                class="text-xl w-3/5 p-3 border rounded @error('password') is-invalid @enderror"
+                                placeholder="パスワード"
+                                required autocomplete="current-password"
+                            />
+
+                            @error('password')
+                                <span class="text-red-600 text-xs" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                            <label for="remember">
+                                {{ __('Remember Me') }}
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="text-xl w-3/5 bg-green-800 text-white py-2 rounded">ログイン</button>
+
+                        @if (Route::has('password.request'))
+                            <div class="mt-2">
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    {{ __('Forgot Your Password?') }}
+                                </a>
+                            </div>
+                        @endif
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -69,5 +146,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 @endsection
