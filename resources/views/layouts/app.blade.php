@@ -34,7 +34,7 @@
         </nav>
     @endif
     <div id="app" class="h-screen">
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>
