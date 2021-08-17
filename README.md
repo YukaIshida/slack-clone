@@ -48,7 +48,8 @@ laravel baseをベースに以下を追加
 - ログイン機能追加
 - Tailwindcss導入
 
-※ Tailwindcssを使用する場合は以下ファイルのbootstrapを無効にし、bootstrapを使用する場合はTailwindcssを無効にする。
+※ Tailwindcssを使用する場合は以下ファイルのbootstrapを無効にし、bootstrapを使用する場合はTailwindcssを無効にしてnpm runする。
+  (デフォルトではbootrapを無効化済み)
 ```
 resources/sass/app.scss
 ```
