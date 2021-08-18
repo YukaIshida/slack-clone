@@ -94,8 +94,7 @@ export default {
             axios.post('/api/messages', submitArray)
                 .then(response => {
                     alert("保存しました");
-                    console.log(response.data);
-                    // this.messages.data.unshift(response.data);
+                    this.messages.data.push(response.data);
                     this.message = "";
                 })
                 .catch(errors => {

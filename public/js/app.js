@@ -2366,7 +2366,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       submitArray['content'] = this.message;
       axios.post('/api/messages', submitArray).then(function (response) {
         alert("保存しました");
-        console.log(response.data); // this.messages.data.unshift(response.data);
+
+        _this.messages.data.push(response.data);
 
         _this.message = "";
       })["catch"](function (errors) {
