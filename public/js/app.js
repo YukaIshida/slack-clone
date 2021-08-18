@@ -1876,10 +1876,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Avator",
-  props: ['user'],
+  props: ['userEmail'],
   computed: {
     avator_url: function avator_url() {
-      return "https://i.pravatar.cc/50?u=" + this.user;
+      return "https://i.pravatar.cc/50?u=" + this.userEmail;
     }
   }
 });
@@ -39303,7 +39303,7 @@ var render = function() {
                     { staticClass: "mt-2 mb-4 flex" },
                     [
                       _c("Avator", {
-                        attrs: { user: _vm.authUser.data.attributes.email }
+                        attrs: { userEmail: _vm.authUser.data.attributes.email }
                       }),
                       _vm._v(" "),
                       _c("div", { staticClass: "ml-2" }, [

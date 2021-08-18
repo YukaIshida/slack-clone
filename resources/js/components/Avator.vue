@@ -8,10 +8,10 @@
 
 export default {
     name: "Avator",
-    props: ['user'],
+    props: ['userEmail'],
     computed: {
         avator_url() {
-            return "https://i.pravatar.cc/50?u=" + this.user;
+            return "https://i.pravatar.cc/50?u=" + this.userEmail;
         }
     }
 

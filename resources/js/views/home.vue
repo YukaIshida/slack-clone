@@ -28,7 +28,7 @@
                 <div class="flex flex-col ml-6 h-full">
                     <div class="flex-grow overflow-y-scroll">
                         <div class="mt-2 mb-4 flex">
-                            <Avator :user="authUser.data.attributes.email" />
+                            <Avator :userEmail="authUser.data.attributes.email" />
 
                             <div class="ml-2">
                                 <div class="font-bold">{{ authUser.data.attributes.email }}</div>
