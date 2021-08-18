@@ -1,6 +1,6 @@
 <template>
     <div class="flex h-screen" v-if="authUser">
-        <Sidebar />
+        <Sidebar @updateChannelName="updateMyChannelName($event)" />
 
         <div class="flex flex-col flex-grow bg-gray-100">
             <Header />
@@ -11,7 +11,7 @@
                             <Avator :userEmail="authUser.data.attributes.email" />
 
                             <div class="ml-2">
-                                <div class="font-bold">{{ authUser.data.attributes.email }}</div>
+                                <div class="font-bold">{{ channel_name }}</div>
                                 <div>初めてのメッセージ</div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@ export default {
 
     data() {
         return {
-            user: '',
+            channel_name: '',
         }
     },
 
@@ -60,7 +60,10 @@ export default {
     },
 
     methods: {
-
+        updateMyChannelName: function($event) {
+            var self = this;
+            self.channel_name = $event;
+        },
     }
 }
 </script>

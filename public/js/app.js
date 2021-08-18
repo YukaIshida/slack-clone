@@ -2029,6 +2029,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
     authUser: 'authUser'
   })),
+  methods: {
+    directMessage: function directMessage(email) {
+      this.$emit("updateChannelName", email);
+    }
+  },
   data: function data() {
     return {
       users: [{
@@ -2320,7 +2325,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      user: ''
+      channel_name: ''
     };
   },
   mounted: function mounted() {
@@ -2329,7 +2334,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)({
     authUser: 'authUser'
   })),
-  methods: {}
+  methods: {
+    updateMyChannelName: function updateMyChannelName($event) {
+      var self = this;
+      self.channel_name = $event;
+    }
+  }
 });
 
 /***/ }),
@@ -39036,9 +39046,18 @@ var render = function() {
               staticClass: "bg-yellow-400 rounded-full w-3 h-3 mr-2"
             }),
             _vm._v(" "),
-            _c("span", { staticClass: "opacity-50" }, [
-              _vm._v(_vm._s(user.email))
-            ])
+            _c(
+              "span",
+              {
+                staticClass: "opacity-50",
+                on: {
+                  click: function($event) {
+                    return _vm.directMessage(user.email)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(user.email))]
+            )
           ]
         )
       })
@@ -39424,7 +39443,13 @@ var render = function() {
         "div",
         { staticClass: "flex h-screen" },
         [
-          _c("Sidebar"),
+          _c("Sidebar", {
+            on: {
+              updateChannelName: function($event) {
+                return _vm.updateMyChannelName($event)
+              }
+            }
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -39447,7 +39472,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "ml-2" }, [
                           _c("div", { staticClass: "font-bold" }, [
-                            _vm._v(_vm._s(_vm.authUser.data.attributes.email))
+                            _vm._v(_vm._s(_vm.channel_name))
                           ]),
                           _vm._v(" "),
                           _c("div", [_vm._v("初めてのメッセージ")])
