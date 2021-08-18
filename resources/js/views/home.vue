@@ -16,12 +16,23 @@
 
 <script>
 import Notification from '../components/icons/Notification';
+import { mapGetters } from 'vuex';
 
 export default {
     name: "Home",
 
     components: {
         Notification
+    },
+
+    mounted() {
+        this.$store.dispatch('fetchAuthUser');
+    },
+
+    computed: {
+        ...mapGetters({
+            authUser: 'authUser',
+        })
     },
 
     methods: {
