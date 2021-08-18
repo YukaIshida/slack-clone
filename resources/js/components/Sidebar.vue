@@ -1,6 +1,6 @@
 <template>
-    <div class="w-1/5 bg-gray-800 text-white pt-3 px-4">
-        <div class="flex justify-between items-center">
+    <div class="w-1/5 bg-gray-800 text-white pt-3 px-4 overflow-hidden">
+        <div class="flex justify-between items-start">
             <h1 class="font-semibold text-xl leading-tight">Slack Clone</h1>
             <Notification />
         </div>

@@ -38973,11 +38973,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "w-1/5 bg-gray-800 text-white pt-3 px-4" },
+    { staticClass: "w-1/5 bg-gray-800 text-white pt-3 px-4 overflow-hidden" },
     [
       _c(
         "div",
-        { staticClass: "flex justify-between items-center" },
+        { staticClass: "flex justify-between items-start" },
         [
           _c("h1", { staticClass: "font-semibold text-xl leading-tight" }, [
             _vm._v("Slack Clone")
