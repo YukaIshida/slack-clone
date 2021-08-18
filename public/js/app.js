@@ -1918,6 +1918,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -37799,18 +37802,24 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex h-screen" }, [
-    _c(
-      "div",
-      { staticClass: "w-1/5 bg-gray-800 text-white pt-3 px-4" },
-      [
-        _c("h1", { staticClass: "font-semibold text-xl leading-tight" }, [
-          _vm._v("Slack Clone")
-        ]),
-        _vm._v(" "),
-        _c("Notification")
-      ],
-      1
-    ),
+    _c("div", { staticClass: "w-1/5 bg-gray-800 text-white pt-3 px-4" }, [
+      _c(
+        "div",
+        { staticClass: "flex justify-between items-center" },
+        [
+          _c("h1", { staticClass: "font-semibold text-xl leading-tight" }, [
+            _vm._v("Slack Clone")
+          ]),
+          _vm._v(" "),
+          _c("Notification")
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.authUser
+        ? _c("div", [_vm._v(_vm._s(_vm.authUser.data.attributes.email))])
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "flex-grow bg-gray-100" }, [
       _c("p", [_vm._v("ログイン中")]),
