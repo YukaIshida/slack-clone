@@ -2030,8 +2030,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     authUser: 'authUser'
   })),
   methods: {
-    directMessage: function directMessage(email) {
-      this.$emit("updateChannelName", email);
+    directMessage: function directMessage(user) {
+      this.$emit("updateChannelName", user);
     }
   },
   data: function data() {
@@ -2312,6 +2312,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2325,7 +2334,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      channel_name: ''
+      channel_name: '',
+      message: '',
+      messages: [],
+      placeholder: '',
+      channel_id: '',
+      errors: ''
     };
   },
   mounted: function mounted() {
@@ -2335,9 +2349,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     authUser: 'authUser'
   })),
   methods: {
-    updateMyChannelName: function updateMyChannelName($event) {
+    updateMyChannelInfo: function updateMyChannelInfo($event) {
       var self = this;
-      self.channel_name = $event;
+      self.messages = [];
+      this.authUser.data.user_id > $event.user_id ? this.channel_id = this.authUser.data.user_id + "-" + $event.user_id : this.channel_id = $event.user_id + "-" + this.authUser.data.user_id;
+      self.channel_name = $event.email;
+      self.placeholder = $event.email + "へのメッセージ";
+      this.getMessages(this.channel_id);
+    },
+    sendMessage: function sendMessage() {
+      var _this = this;
+
+      var submitArray = {};
+      submitArray['channel_id'] = this.channel_id;
+      submitArray['user'] = this.authUser.data.attributes.email;
+      submitArray['content'] = this.message;
+      axios.post('/api/messages', submitArray).then(function (response) {
+        alert("保存しました");
+        console.log(response.data); // this.messages.data.unshift(response.data);
+
+        _this.message = "";
+      })["catch"](function (errors) {
+        _this.errors = errors.response.data.errors;
+      });
+    },
+    getMessages: function getMessages(channel_id) {
+      var _this2 = this;
+
+      axios.get('/api/messages?channel_id=' + channel_id).then(function (response) {
+        _this2.messages = response.data;
+      })["catch"](function (errors) {
+        _this2.errors = errors.response.data.errors;
+      });
     }
   }
 });
@@ -39052,7 +39095,7 @@ var render = function() {
                 staticClass: "opacity-50",
                 on: {
                   click: function($event) {
-                    return _vm.directMessage(user.email)
+                    return _vm.directMessage(user)
                   }
                 }
               },
@@ -39446,7 +39489,7 @@ var render = function() {
           _c("Sidebar", {
             on: {
               updateChannelName: function($event) {
-                return _vm.updateMyChannelName($event)
+                return _vm.updateMyChannelInfo($event)
               }
             }
           }),
@@ -39459,30 +39502,73 @@ var render = function() {
               _vm._v(" "),
               _c("main", { staticClass: "overflow-y-scroll flex-grow" }, [
                 _c("div", { staticClass: "flex flex-col ml-6 h-full" }, [
-                  _c("div", { staticClass: "flex-grow overflow-y-scroll" }, [
-                    _c(
-                      "div",
-                      { staticClass: "mt-2 mb-4 flex" },
-                      [
-                        _c("Avator", {
-                          attrs: {
-                            userEmail: _vm.authUser.data.attributes.email
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "ml-2" }, [
-                          _c("div", { staticClass: "font-bold" }, [
-                            _vm._v(_vm._s(_vm.channel_name))
-                          ]),
+                  _c(
+                    "div",
+                    { staticClass: "flex-grow overflow-y-scroll" },
+                    _vm._l(_vm.messages.data, function(message) {
+                      return _c(
+                        "div",
+                        { key: message.key, staticClass: "mt-2 mb-4 flex" },
+                        [
+                          _c("Avator", {
+                            attrs: { userEmail: message.data.attributes.user }
+                          }),
                           _vm._v(" "),
-                          _c("div", [_vm._v("初めてのメッセージ")])
-                        ])
-                      ],
-                      1
-                    )
-                  ]),
+                          _c("div", { staticClass: "ml-2" }, [
+                            _c("div", { staticClass: "font-bold" }, [
+                              _vm._v(_vm._s(message.data.attributes.user))
+                            ]),
+                            _vm._v(" "),
+                            _c("div", [
+                              _vm._v(_vm._s(message.data.attributes.content))
+                            ])
+                          ])
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  ),
                   _vm._v(" "),
-                  _vm._m(0)
+                  _c(
+                    "div",
+                    { staticClass: "border border-gray-900 rounded mb-4" },
+                    [
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.message,
+                            expression: "message"
+                          }
+                        ],
+                        staticClass: "w-full pt-4 pl-8 outline-none",
+                        attrs: { placeholder: _vm.placeholder },
+                        domProps: { value: _vm.message },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.message = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "bg-gray-100 p-2" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "bg-green-900 text-sm text-white font-bold py-1 px-2 rounded",
+                            on: { click: _vm.sendMessage }
+                          },
+                          [_vm._v("送信\n                        ")]
+                        )
+                      ])
+                    ]
+                  )
                 ])
               ])
             ],
@@ -39493,30 +39579,7 @@ var render = function() {
       )
     : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "border border-gray-900 rounded mb-4" }, [
-      _c("textarea", {
-        staticClass: "w-full pt-4 pl-8 outline-none",
-        attrs: { placeholder: "XXXXへのメッセージ" }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "bg-gray-100 p-2" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "bg-green-900 text-sm text-white font-bold py-1 px-2 rounded"
-          },
-          [_vm._v("送信")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

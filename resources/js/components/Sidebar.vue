@@ -26,7 +26,7 @@
         </div>
         <div class="mt-2 flex items-center" v-for="user in users" :key="user.user_id">
             <span class="bg-yellow-400 rounded-full w-3 h-3 mr-2"></span>
-            <span class="opacity-50" @click="directMessage(user.email)">{{ user.email }}</span>
+            <span class="opacity-50" @click="directMessage(user)">{{ user.email }}</span>
         </div>
     </div>
 </template>
@@ -52,8 +52,8 @@ export default {
     },
 
     methods: {
-        directMessage(email) {
-            this.$emit("updateChannelName", email);
+        directMessage(user) {
+            this.$emit("updateChannelName", user);
         }
     },
 
