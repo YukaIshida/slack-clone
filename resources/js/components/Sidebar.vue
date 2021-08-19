@@ -30,7 +30,8 @@
         </div>
         <div class="mt-2 flex items-center" v-for="user in users" :key="'user' + user.data.user_id">
             <span class="bg-yellow-400 rounded-full w-3 h-3 mr-2"></span>
-            <span class="opacity-50" @click="directMessage(user)">{{ user.data.attributes.email }}</span>
+            <span class="opacity-50" @click="directMessage(user)">{{ user.data.attributes.name }}</span>
+            <span class="opacity-50" v-if="user.data.user_id == authUser.data.user_id">(自分)</span>
         </div>
     </div>
 </template>
