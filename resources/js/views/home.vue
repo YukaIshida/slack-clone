@@ -11,7 +11,7 @@
                             <Avator :userEmail="message.data.attributes.user" />
 
                             <div class="ml-2">
-                                <div class="font-bold">{{ message.data.attributes.user }}</div>
+                                <div><span class="font-bold">{{ message.data.attributes.user }}</span>&ensp;<span class="opacity-50 text-sm">{{ message.data.attributes.updated_at }}</span></div>
                                 <div>{{ message.data.attributes.content }}</div>
                             </div>
                         </div>

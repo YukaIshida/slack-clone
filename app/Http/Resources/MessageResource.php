@@ -22,6 +22,7 @@ class MessageResource extends JsonResource
                     'channel_id' => $this->channel_id,
                     'user' => $this->user,
                     'content' => $this->content,
+                    'updated_at' => $this->updated_at->diffForHumans(),
                 ]
             ]
         ];
