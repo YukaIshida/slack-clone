@@ -1,6 +1,6 @@
 <template>
     <div class="flex h-screen" v-if="authUser">
-        <Sidebar @updateChannelInfoDm="updateMyChannelInfoDm($event)" />
+        <Sidebar @updateChannelInfoDm="updateMyChannelInfoDm($event)" @updateChannelInfo="updateMyChannelInfo($event)" />
 
         <div class="flex flex-col flex-grow bg-gray-100">
             <Header />
@@ -84,6 +84,15 @@ export default {
             self.channel_name = $event.email;
             self.placeholder = $event.email + "へのメッセージ";
             this.getMessages(this.channel_id);
+        },
+        updateMyChannelInfo: function($event) {
+            var self = this;
+            self.messages = [];
+
+            self.channel_name = $event.data.attributes.channel_name;
+            self.placeholder = $event.data.attributes.channel_name + "へのメッセージ";
+            self.channel_id = $event.data.channel_id;
+            this.getMessages($event.data.channel_id);
         },
         sendMessage() {
             let submitArray = {};

@@ -64,6 +64,9 @@ export default {
         directMessage(user) {
             this.$emit("updateChannelInfoDm", user);
         },
+        channelMessage(channel) {
+            this.$emit("updateChannelInfo", channel);
+        },
         showChannelModal() {
             this.parentChannelModal = true;
         },
