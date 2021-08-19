@@ -47,8 +47,8 @@
         <div
             class="opacity-50 mt-1"
             v-for="channel in channels"
-            :key="channel.id"
-        ># {{ channel.channel_name }}</div>
+            :key="channel.data.channel_id"
+        ># {{ channel.data.attributes.channel_name }}</div>
 
         <div class="mt-5 flex justify-between items-center">
             <div class="font-bold opacity-50 text-lg">ダイレクトメッセージ</div>
@@ -74,6 +74,9 @@ export default {
         PlusCircle,
     },
 
+    mounted() {
+        this.getchannels();
+    },
 
     computed: {
         ...mapGetters({
@@ -103,6 +106,15 @@ export default {
                 .catch(errors => {
                     this.errors = errors.response.data.errors;
                 });
+        },
+        getchannels() {
+            axios.get('/api/channels')
+                .then(response => {
+                    this.channels = response.data.data;
+                })
+                .catch(errors => {
+                    this.errors = errors.response.data.errors;
+                });
         }
     },
 
@@ -122,20 +134,7 @@ export default {
                     email: "susan@test.com"
                 },
             ],
-            channels: [
-                {
-                    id: 1,
-                    channel_name: '営業'
-                },
-                {
-                    id: 2,
-                    channel_name: 'マーケティング'
-                },
-                {
-                    id: 3,
-                    channel_name: '情シス'
-                },
-            ],
+            channels: [],
             channelModal: false,
             channel: '',
             errors: ''
