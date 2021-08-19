@@ -12,7 +12,23 @@
 
         <div class="mt-5 flex justify-between items-center">
             <div class="font-bold opacity-50 text-lg">チャンネル</div>
-            <PlusCircle />
+            <!-- modal -->
+            <div class="z-10 fixed top-0 left-0 h-full w-full flex items-center justify-center" 
+                style="background-color:rgba(0, 0, 0, 0.5)"
+                v-show="channelModal"
+                @click="closeChannelModal"
+            >
+                <div class="z-20 bg-white text-gray-900 w-1/3 rounded-md">
+                    <div class="flex flex-col p-6">
+                        <div >
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <PlusCircle @click.native="showChannelModal" />
         </div>
         <div
             class="opacity-50 mt-1"
@@ -54,6 +70,12 @@ export default {
     methods: {
         directMessage(user) {
             this.$emit("updateChannelName", user);
+        },
+        showChannelModal() {
+            this.channelModal = true;
+        },
+        closeChannelModal() {
+            this.channelModal = false;
         }
     },
 
@@ -86,7 +108,8 @@ export default {
                     id: 3,
                     channel_name: '情シス'
                 },
-            ]
+            ],
+            channelModal: false,
         }
     },
 }

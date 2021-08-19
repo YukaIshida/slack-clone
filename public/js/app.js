@@ -2017,6 +2017,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2032,6 +2048,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     directMessage: function directMessage(user) {
       this.$emit("updateChannelName", user);
+    },
+    showChannelModal: function showChannelModal() {
+      this.channelModal = true;
+    },
+    closeChannelModal: function closeChannelModal() {
+      this.channelModal = false;
     }
   },
   data: function data() {
@@ -2055,7 +2077,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         id: 3,
         channel_name: '情シス'
-      }]
+      }],
+      channelModal: false
     };
   }
 });
@@ -39055,7 +39078,32 @@ var render = function() {
             _vm._v("チャンネル")
           ]),
           _vm._v(" "),
-          _c("PlusCircle")
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.channelModal,
+                  expression: "channelModal"
+                }
+              ],
+              staticClass:
+                "z-10 fixed top-0 left-0 h-full w-full flex items-center justify-center",
+              staticStyle: { "background-color": "rgba(0, 0, 0, 0.5)" },
+              on: { click: _vm.closeChannelModal }
+            },
+            [_vm._m(0)]
+          ),
+          _vm._v(" "),
+          _c("PlusCircle", {
+            nativeOn: {
+              click: function($event) {
+                return _vm.showChannelModal.apply(null, arguments)
+              }
+            }
+          })
         ],
         1
       ),
@@ -39107,7 +39155,18 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "z-20 bg-white text-gray-900 w-1/3 rounded-md" },
+      [_c("div", { staticClass: "flex flex-col p-6" }, [_c("div")])]
+    )
+  }
+]
 render._withStripped = true
 
 
