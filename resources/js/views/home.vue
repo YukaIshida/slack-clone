@@ -77,12 +77,12 @@ export default {
         updateMyChannelInfoDm: function($event) {
             var self = this;
             self.messages = [];
-            this.authUser.data.user_id > $event.user_id
-            ? (this.channel_id = this.authUser.data.user_id + "-" + $event.user_id)
-            : (this.channel_id = $event.user_id + "-" + this.authUser.data.user_id);
+            this.authUser.data.user_id > $event.data.user_id
+            ? (this.channel_id = this.authUser.data.user_id + "-" + $event.data.user_id)
+            : (this.channel_id = $event.data.user_id + "-" + this.authUser.data.user_id);
 
-            self.channel_name = $event.email;
-            self.placeholder = $event.email + "へのメッセージ";
+            self.channel_name = $event.data.attributes.email;
+            self.placeholder = $event.data.attributes.email + "へのメッセージ";
             this.getMessages(this.channel_id);
         },
         updateMyChannelInfo: function($event) {

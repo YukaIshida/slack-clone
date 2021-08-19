@@ -28,9 +28,9 @@
             <div class="font-bold opacity-50 text-lg">ダイレクトメッセージ</div>
             <PlusCircle />
         </div>
-        <div class="mt-2 flex items-center" v-for="user in users" :key="user.user_id">
+        <div class="mt-2 flex items-center" v-for="user in users" :key="'user' + user.data.user_id">
             <span class="bg-yellow-400 rounded-full w-3 h-3 mr-2"></span>
-            <span class="opacity-50" @click="directMessage(user)">{{ user.email }}</span>
+            <span class="opacity-50" @click="directMessage(user)">{{ user.data.attributes.email }}</span>
         </div>
     </div>
 </template>
@@ -52,6 +52,7 @@ export default {
 
     mounted() {
         this.getchannels();
+        this.getUsers();
     },
 
     computed: {
@@ -79,6 +80,15 @@ export default {
                     this.errors = errors.response.data.errors;
                 });
         },
+        getUsers() {
+            axios.get('/api/users')
+                .then(response => {
+                    this.users = response.data.data;
+                })
+                .catch(errors => {
+                    this.errors = errors.response.data.errors;
+                });
+        },
         closeChannelModal() {
             this.parentChannelModal = false;
         }
@@ -86,20 +96,7 @@ export default {
 
     data() {
         return {
-            users: [
-                {
-                    user_id: 11,
-                    email: "john@example.com"
-                },
-                {
-                    user_id: 12,
-                    email: "kevin@test.com"
-                },
-                {
-                    user_id: 13,
-                    email: "susan@test.com"
-                },
-            ],
+            users: [],
             channels: [],
             errors: '',
             parentChannelModal: false,
