@@ -1,7 +1,7 @@
 <template>
     <div class="z-10 fixed top-0 left-0 h-full w-full flex items-center justify-center" 
         style="background-color:rgba(0, 0, 0, 0.5)"
-        v-show="channelModal"
+        v-show="addChannelModal"
         @click="closeChannelModal"
     >
         <div class="z-20 bg-white text-gray-900 w-1/3 rounded-md" @click.stop>
@@ -31,17 +31,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
-    name: "AddChannelModal",
+    name: "channelModal",
 
-    props: [
-        'channelModal',
-    ],
+    computed: {
+        ...mapGetters({
+            addChannelModal: 'addChannelModal',
+        })
+    },
 
     methods: {
         closeChannelModal() {
-            this.$emit("closeModal");
+            this.$store.dispatch('updateChannelModalAction', false);
         },
         addChannel() {
             let submitArray = {};

@@ -18,12 +18,12 @@
                 v-show="sideModal"
                 @click="closeSideModal"
             >
-                <div class="fixed w-36 h-24 rounded bg-white text-black top-40 left-36 py-2">
+                <div class="fixed w-36 h-24 rounded bg-white text-black top-40 left-36 py-2" @click.stop>
                     <div class="py-2 hover:bg-blue-700 hover:text-white text-center">チャンネル一覧</div>
                     <div class="py-2 hover:bg-blue-700 hover:text-white text-center" @click="showChannelModal">チャンネル作成</div>
                 </div>
             </div>
-            <AddChannelModal :channelModal="parentChannelModal" @closeModal="closeChannelModal" @parentGetchannels="getchannels" />
+            <AddChannelModal />
             <PlusCircle @click.native="showSideModal" />
         </div>
         <div
@@ -69,6 +69,8 @@ export default {
     computed: {
         ...mapGetters({
             authUser: 'authUser',
+            addChannelModal: 'addChannelModal',
+            sideModal: 'sideModal'
         })
     },
 
@@ -78,12 +80,6 @@ export default {
         },
         channelMessage(channel) {
             this.$emit("updateChannelInfo", channel);
-        },
-        showChannelModal() {
-            this.parentChannelModal = true;
-        },
-        showSideModal() {
-            this.sideModal = true;
         },
         getchannels() {
             axios.get('/api/channels')
@@ -103,11 +99,18 @@ export default {
                     this.errors = errors.response.data.errors;
                 });
         },
+        showChannelModal() {
+            this.$store.dispatch('updateChannelModalAction', true);
+            this.$store.dispatch('updateSideModalAction', false);
+        },
+        showSideModal() {
+            this.$store.dispatch('updateSideModalAction', true);
+        },
         closeChannelModal() {
-            this.parentChannelModal = false;
+            this.$store.dispatch('updateChannelModalAction', false);
         },
         closeSideModal() {
-            this.sideModal = false;
+            this.$store.dispatch('updateSideModalAction', false);
         }
     },
 
@@ -116,8 +119,6 @@ export default {
             users: [],
             channels: [],
             errors: '',
-            parentChannelModal: false,
-            sideModal: false,
         }
     },
 }
