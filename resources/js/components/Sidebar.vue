@@ -13,8 +13,18 @@
         <div class="mt-5 flex justify-between items-center">
             <div class="font-bold opacity-50 text-lg">チャンネル</div>
             <!-- modal -->
+            <div class="z-10 fixed top-0 left-0 h-full w-full flex items-center justify-center" 
+                style="background-color:rgba(0, 0, 0, 0)"
+                v-show="sideModal"
+                @click="closeSideModal"
+            >
+                <div class="fixed w-36 h-24 rounded bg-white text-black top-40 left-36 py-2">
+                    <div class="py-2 hover:bg-blue-700 hover:text-white text-center">チャンネル一覧</div>
+                    <div class="py-2 hover:bg-blue-700 hover:text-white text-center" @click="showChannelModal">チャンネル作成</div>
+                </div>
+            </div>
             <AddChannelModal :channelModal="parentChannelModal" @closeModal="closeChannelModal" @parentGetchannels="getchannels" />
-            <PlusCircle @click.native="showChannelModal" />
+            <PlusCircle @click.native="showSideModal" />
         </div>
         <div
             class="opacity-50 mt-1"
@@ -72,6 +82,9 @@ export default {
         showChannelModal() {
             this.parentChannelModal = true;
         },
+        showSideModal() {
+            this.sideModal = true;
+        },
         getchannels() {
             axios.get('/api/channels')
                 .then(response => {
@@ -92,6 +105,9 @@ export default {
         },
         closeChannelModal() {
             this.parentChannelModal = false;
+        },
+        closeSideModal() {
+            this.sideModal = false;
         }
     },
 
@@ -101,6 +117,7 @@ export default {
             channels: [],
             errors: '',
             parentChannelModal: false,
+            sideModal: false,
         }
     },
 }
