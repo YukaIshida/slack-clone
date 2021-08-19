@@ -20,7 +20,9 @@
             class="opacity-50 mt-1"
             v-for="channel in channels"
             :key="channel.data.channel_id"
-        ># {{ channel.data.attributes.channel_name }}</div>
+        >
+            <span @click="channelMessage(channel)"># {{ channel.data.attributes.channel_name }}</span>
+        </div>
 
         <div class="mt-5 flex justify-between items-center">
             <div class="font-bold opacity-50 text-lg">ダイレクトメッセージ</div>
@@ -60,7 +62,7 @@ export default {
 
     methods: {
         directMessage(user) {
-            this.$emit("updateChannelName", user);
+            this.$emit("updateChannelInfoDm", user);
         },
         showChannelModal() {
             this.parentChannelModal = true;

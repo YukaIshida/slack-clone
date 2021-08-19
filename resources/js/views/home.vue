@@ -1,6 +1,6 @@
 <template>
     <div class="flex h-screen" v-if="authUser">
-        <Sidebar @updateChannelName="updateMyChannelInfo($event)" />
+        <Sidebar @updateChannelInfoDm="updateMyChannelInfoDm($event)" />
 
         <div class="flex flex-col flex-grow bg-gray-100">
             <Header />
@@ -74,7 +74,7 @@ export default {
     },
 
     methods: {
-        updateMyChannelInfo: function($event) {
+        updateMyChannelInfoDm: function($event) {
             var self = this;
             self.messages = [];
             this.authUser.data.user_id > $event.user_id
