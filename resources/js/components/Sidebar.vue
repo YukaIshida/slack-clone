@@ -13,16 +13,7 @@
         <div class="mt-5 flex justify-between items-center">
             <div class="font-bold opacity-50 text-lg">チャンネル</div>
             <!-- modal -->
-            <div class="z-10 fixed top-0 left-0 h-full w-full flex items-center justify-center" 
-                style="background-color:rgba(0, 0, 0, 0)"
-                v-show="sideModal"
-                @click="closeSideModal"
-            >
-                <div class="fixed w-36 h-24 rounded bg-white text-black top-40 left-36 py-2" @click.stop>
-                    <div class="py-2 hover:bg-blue-700 hover:text-white text-center">チャンネル一覧</div>
-                    <div class="py-2 hover:bg-blue-700 hover:text-white text-center" @click="showChannelModal">チャンネル作成</div>
-                </div>
-            </div>
+            <SideModal />
             <AddChannelModal />
             <PlusCircle @click.native="showSideModal" />
         </div>
@@ -50,6 +41,7 @@
 import Notification from '../components/icons/Notification';
 import PlusCircle from '../components/icons/PlusCircle';
 import AddChannelModal from '../views/AddChannelModal';
+import SideModal from '../views/SideModal';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -58,7 +50,8 @@ export default {
     components: {
         Notification,
         PlusCircle,
-        AddChannelModal
+        AddChannelModal,
+        SideModal
     },
 
     mounted() {
@@ -99,19 +92,9 @@ export default {
                     this.errors = errors.response.data.errors;
                 });
         },
-        showChannelModal() {
-            this.$store.dispatch('updateChannelModalAction', true);
-            this.$store.dispatch('updateSideModalAction', false);
-        },
         showSideModal() {
             this.$store.dispatch('updateSideModalAction', true);
         },
-        closeChannelModal() {
-            this.$store.dispatch('updateChannelModalAction', false);
-        },
-        closeSideModal() {
-            this.$store.dispatch('updateSideModalAction', false);
-        }
     },
 
     data() {
