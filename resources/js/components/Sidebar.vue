@@ -13,7 +13,7 @@
         <div class="mt-5 flex justify-between items-center">
             <div class="font-bold opacity-50 text-lg">チャンネル</div>
             <!-- modal -->
-            <AddChannelModal :channelModal="parentChannelModal" @closeModal="closeChannelModal" />
+            <AddChannelModal :channelModal="parentChannelModal" @closeModal="closeChannelModal" @parentGetchannels="getchannels" />
             <PlusCircle @click.native="showChannelModal" />
         </div>
         <div
