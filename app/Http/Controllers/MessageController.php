@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Http\Resources\MessageResource;
 use App\Http\Resources\MessageCollection;
+use App\Events\MessageCreated;
 
 class MessageController extends Controller
 {
@@ -25,6 +26,7 @@ class MessageController extends Controller
         $message->content = $request->content;
         $message->save();
 
+        event(new MessageCreated($message));
         return new MessageResource($message);
     }
 }
