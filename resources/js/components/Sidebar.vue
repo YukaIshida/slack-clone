@@ -69,10 +69,25 @@ export default {
 
     methods: {
         directMessage(user) {
-            this.$emit("updateChannelInfoDm", user);
+            this.$store.dispatch('setMessagesAction', []);
+
+            if (this.authUser.data.user_id > user.data.user_id) {
+                this.$store.dispatch('setChannelIdAction', this.authUser.data.user_id + "-" + user.data.user_id);
+            } else {
+                this.$store.dispatch('setChannelIdAction', user.data.user_id + "-" + this.authUser.data.user_id);
+            }
+
+            this.$store.dispatch('setChannelNameAction', user.data.attributes.email);
+            this.$store.dispatch('setPlaceholderAction', user.data.attributes.email + "へのメッセージ");
+            this.$store.dispatch('fetchMessages');
         },
         channelMessage(channel) {
-            this.$emit("updateChannelInfo", channel);
+            this.$store.dispatch('setMessagesAction', []);
+
+            this.$store.dispatch('setChannelNameAction', channel.data.attributes.channel_name);
+            this.$store.dispatch('setPlaceholderAction', channel.data.attributes.channel_name + "へのメッセージ");
+            this.$store.dispatch('setChannelIdAction', channel.data.channel_id);
+            this.$store.dispatch('fetchMessages');
         },
         getchannels() {
             axios.get('/api/channels')
