@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col flex-grow bg-gray-100">
+    <div class="flex flex-col flex-grow bg-gray-100 overflow-y-scroll">
         <Header />
         <main class="overflow-y-scroll flex-grow">
             <div class="flex flex-col ml-6 h-full">
