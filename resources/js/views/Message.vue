@@ -47,6 +47,13 @@ export default {
         Header
     },
 
+    mounted() {
+        Echo.channel('chat')
+            .listen('MessageCreated', (e) => {
+                this.$store.dispatch('fetchMessages');
+            });
+    },
+
     computed: {
         ...mapGetters({
             messages: 'messages',
