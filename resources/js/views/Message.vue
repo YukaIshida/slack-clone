@@ -62,7 +62,6 @@ export default {
         }
     },
 
-
     methods: {
         sendMessage() {
             this.$store.dispatch('sendMessage', this.message);

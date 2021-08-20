@@ -2,7 +2,7 @@
     <header class="border-b">
         <div class="flex justify-between m-3">
             <div>
-                <div class="font-bold text-lg">{{ authUser.data.attributes.email }}</div>
+                <div class="font-bold text-lg" v-if="channelName">#{{ channelName }}</div>
                 <Star />
             </div>
             <div class="flex items-center">
@@ -45,6 +45,7 @@ export default {
     computed: {
         ...mapGetters({
             authUser: 'authUser',
+            channelName: 'channelName',
         })
     },
 

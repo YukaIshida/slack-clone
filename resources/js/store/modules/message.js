@@ -1,5 +1,5 @@
 const state = {
-    channel_name: '',
+    channel_name: null,
     messages: [],
     placeholder: '',
     channel_id: '',
