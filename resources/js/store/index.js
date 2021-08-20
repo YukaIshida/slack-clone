@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import User from './modules/user';
+import Message from './modules/message';
 import Modal from './modules/modal';
 
 Vue.use(Vuex);
@@ -9,6 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     modules: {
         User,
-        Modal
+        Modal,
+        Message
     }
 });
