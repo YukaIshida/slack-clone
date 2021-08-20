@@ -5,7 +5,7 @@
         @click="closeSideModal"
     >
         <div class="fixed w-36 h-24 rounded bg-white text-black top-40 left-36 py-2" @click.stop>
-            <div class="py-2 hover:bg-blue-700 hover:text-white text-center">チャンネル一覧</div>
+            <router-link to="/channel-search" class="block py-2 hover:bg-blue-700 hover:text-white text-center">チャンネル一覧</router-link>
             <div class="py-2 hover:bg-blue-700 hover:text-white text-center" @click="showChannelModal">チャンネル作成</div>
         </div>
     </div>
