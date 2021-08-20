@@ -52,8 +52,7 @@ export default {
             
             axios.post('/api/channels', submitArray)
                 .then(response => {
-                    // this.channels.data.push(response.data);
-                    this.$emit("closeModal");
+                    this.$store.dispatch('updateChannelModalAction', false);
                     this.$emit("parentGetchannels");
                 })
                 .catch(errors => {

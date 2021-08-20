@@ -14,7 +14,7 @@
             <div class="font-bold opacity-50 text-lg">チャンネル</div>
             <!-- modal -->
             <SideModal />
-            <AddChannelModal />
+            <AddChannelModal @parentGetchannels="getchannels" />
             <PlusCircle @click.native="showSideModal" />
         </div>
         <div
