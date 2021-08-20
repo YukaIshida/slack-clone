@@ -80,6 +80,9 @@ export default {
             this.$store.dispatch('setChannelNameAction', user.data.attributes.email);
             this.$store.dispatch('setPlaceholderAction', user.data.attributes.email + "へのメッセージ");
             this.$store.dispatch('fetchMessages');
+            if (this.$route.path != '/home') {
+                this.$router.push('/home');
+            }
         },
         channelMessage(channel) {
             this.$store.dispatch('setMessagesAction', []);
@@ -88,6 +91,9 @@ export default {
             this.$store.dispatch('setPlaceholderAction', channel.data.attributes.channel_name + "へのメッセージ");
             this.$store.dispatch('setChannelIdAction', channel.data.channel_id);
             this.$store.dispatch('fetchMessages');
+            if (this.$route.path != '/home') {
+                this.$router.push('/home');
+            }
         },
         getchannels() {
             axios.get('/api/channels')
