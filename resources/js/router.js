@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from "./views/Home";
+import Message from "./views/Message";
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
   routes: [
-    {path:"/home", component: Home}
+    {path:"/home", component: Message}
   ],
   mode: 'history'
 }); 
