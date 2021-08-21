@@ -54,6 +54,7 @@ export default {
                 .then(response => {
                     this.$store.dispatch('updateChannelModalAction', false);
                     this.$emit("parentGetchannels");
+                    this.channel = "";
                 })
                 .catch(errors => {
                     this.errors = errors.response.data.errors;
