@@ -12,9 +12,9 @@ class ChannelController extends Controller
     {
         // ToDo ポリシー追加?(Passportと併用出来るかテストする)
         if ($request->has('searchKey') && !empty($request->input('searchKey'))) {
-            $channels = Channel::where('channel_name', 'like', "%" . $request->input('searchKey') . "%")->get();
+            $channels = Channel::where('channel_name', 'like', "%" . $request->input('searchKey') . "%")->whereNull('dm_channel_name')->get();
         } else {
-            $channels = Channel::all();
+            $channels = Channel::whereNull('dm_channel_name')->get();
         }
 
         return new ChannelCollection($channels);

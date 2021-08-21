@@ -45,13 +45,21 @@ const actions = {
     },
     sendMessage({commit, state, rootState}, message) {
         let submitArray = {};
+        console.log(state.channel_id);
         submitArray['channel_id'] = state.channel_id;
         submitArray['user'] = rootState.User.user.data.attributes.email;
         submitArray['content'] = message;
         
         axios.post('/api/messages', submitArray)
             .then(response => {
-                commit('pushMessage', response.data);
+            })
+            .catch(errors => {
+            });
+    },
+    getChannelId({commit}, dmChannelName) {
+        axios.get('/api/dm-channel?dm_channel_name=' + dmChannelName)
+            .then(response => {
+                commit('setChannelId', response.data);
             })
             .catch(errors => {
             });

@@ -58,6 +58,7 @@ export default {
         ...mapGetters({
             messages: 'messages',
             placeholder: 'placeholder',
+            channel_id: 'channel_id'
         })
     },
 
