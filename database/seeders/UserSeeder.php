@@ -14,6 +14,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
+        $users = json_decode(file_get_contents('database/json/users.json'), true);
+        foreach ($users as $user) {
+            User::factory()->create($user);
+        }
+        
+        User::factory(7)->create();
     }
 }

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 2,
+    "name": "yuka",
+    "email": "yuka@example.com",
+    "email_verified_at": null,
+    "password": "$2y$10$8Ve8fJ9BksEYevoIbJhZk.q7UoOKLK.F.sguOZqpfMoRyzGiY5mTC",
+    "remember_token": "eqFVOlr6rW1tOzILtUaUlV6GDAWIvKe9UO0MF0WMXHrYKrecew2sgJeZFHgH",
+    "created_at": "2021-08-18 16:54:03",
+    "updated_at": "2021-08-18 16:54:03"
+  },
+  {
+    "id": 3,
+    "name": "エリザベス",
+    "email": "elizabeth@example.com",
+    "email_verified_at": null,
+    "password": "$2y$10$eU9rTG7UpTbDjf4NKgQAluexS3McQQdhQmotYs.W2RLMl9VO7ExPS",
+    "remember_token": null,
+    "created_at": "2021-08-19 23:20:41",
+    "updated_at": "2021-08-19 23:20:41"
+  },
+  {
+    "id": 5,
+    "name": "キャサリン",
+    "email": "chath@example.com",
+    "email_verified_at": null,
+    "password": "$2y$10$M.H4qogw2VvcUSiBARqpceD8M6SQMrpZgKZH/2q6TpnbeWa1vURtC",
+    "remember_token": null,
+    "created_at": "2021-08-19 23:20:10",
+    "updated_at": "2021-08-19 23:20:10"
+  }
+]
