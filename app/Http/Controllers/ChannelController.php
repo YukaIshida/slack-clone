@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Channel;
 use App\Http\Resources\ChannelResource;
@@ -12,7 +11,12 @@ class ChannelController extends Controller
     public function index(Request $request)
     {
         // ToDo ポリシー追加?(Passportと併用出来るかテストする)
-        $channels = Channel::all();
+        if ($request->has('searchKey') && !empty($request->input('searchKey'))) {
+            $channels = Channel::where('channel_name', 'like', "%" . $request->input('searchKey') . "%")->get();
+        } else {
+            $channels = Channel::all();
+        }
+
         return new ChannelCollection($channels);
     }
 

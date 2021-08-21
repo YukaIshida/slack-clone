@@ -5,7 +5,7 @@
         @click="closeSideModal"
     >
         <div class="fixed w-36 h-24 rounded bg-white text-black top-40 left-36 py-2" @click.stop>
-            <router-link to="/channel-search" class="block py-2 hover:bg-blue-700 hover:text-white text-center">チャンネル一覧</router-link>
+            <div class="py-2 hover:bg-blue-700 hover:text-white text-center" @click="showChannelSearch">チャンネル一覧</div>
             <div class="py-2 hover:bg-blue-700 hover:text-white text-center" @click="showChannelModal">チャンネル作成</div>
         </div>
     </div>
@@ -31,6 +31,12 @@ export default {
             this.$store.dispatch('updateChannelModalAction', true);
             this.$store.dispatch('updateSideModalAction', false);
         },
+        showChannelSearch() {
+            this.$store.dispatch('updateSideModalAction', false);
+            if (this.$route.path != '/channel-search') {
+                this.$router.push('/channel-search');
+            }
+        }
     },
 
 }
