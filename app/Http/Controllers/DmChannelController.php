@@ -53,8 +53,8 @@ class DmChannelController extends Controller
                 } else {
                     $user = User::where('id', $channel->dm_user_1)->get()->first();
                 }
+                $dmUsers[] = new UserResource($user);
             }
-            $dmUsers[] = new UserResource($user);
         }
 
         return json_encode($dmUsers);
