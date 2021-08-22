@@ -31,7 +31,8 @@ class DmChannelController extends Controller
     {
         // ToDo バリデーションとポリシー（？）追加
         $two_weeks_ago = date("Y-m-d H:i:s",strtotime("-2 week"));;
-        $channels = Channel::getRecentlyTalkedChannels($two_weeks_ago);
+        $one_day_ago = date("Y-m-d H:i:s",strtotime("-1 day"));;
+        $channels = Channel::getRecentlyTalkedChannels($two_weeks_ago, $one_day_ago);
 
         $dmUsers = [];
         $dmUsers[] = new UserResource(Auth::user());

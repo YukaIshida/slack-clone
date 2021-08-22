@@ -15,18 +15,19 @@ class Channel extends Model
         return $this->hasMany(Message::class);
     }
 
-    public static function getRecentlyTalkedChannels($ago)
+    public static function getRecentlyTalkedChannels($ago1, $ago2)
     {
         $channels = self::query()
-        ->where(function ($query) use ($ago) {
-                $query->whereHas('messages', function ($query) use ($ago) {
-                    $query->where('updated_at', '>=', $ago);
+        ->where(function ($query) use ($ago1, $ago2) {
+                $query->whereHas('messages', function ($query) use ($ago1) {
+                    $query->where('messages.updated_at', '>=', $ago1);
                 })
-                ->where(function ($query) {
-                    $query->where('dm_user_1', Auth::user()->id)
-                    ->OrWhere('dm_user_2', Auth::user()->id);
-                });
+                ->orWhere('channels.created_at', '>=', $ago2);
             })
+        ->where(function ($query) {
+            $query->where('dm_user_1', Auth::user()->id)
+            ->OrWhere('dm_user_2', Auth::user()->id);
+        })
         ->get();
 
         return $channels;
