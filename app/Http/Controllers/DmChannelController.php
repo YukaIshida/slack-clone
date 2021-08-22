@@ -41,20 +41,19 @@ class DmChannelController extends Controller
                         ->OrWhere('dm_user_2', Auth::user()->id);
                     });
                 })
-            ->OrWhere(function ($query) {
-                $query->where('dm_user_1', Auth::user()->id)
-                ->where('dm_user_2', Auth::user()->id);
-            })
             ->get();
 
         $dmUsers = [];
+        $dmUsers[] = new UserResource(Auth::user());
+        
         foreach($channels as $channel) {
-            if ($channel->dm_user_1 == Auth::user()->id) {
-                $user = User::where('id', $channel->dm_user_2)->get()->first();
-            } else {
-                $user = User::where('id', $channel->dm_user_1)->get()->first();
+            if ($channel->dm_user_1 !== $channel->dm_user_2) {
+                if ($channel->dm_user_1 == Auth::user()->id) {
+                    $user = User::where('id', $channel->dm_user_2)->get()->first();
+                } else {
+                    $user = User::where('id', $channel->dm_user_1)->get()->first();
+                }
             }
-
             $dmUsers[] = new UserResource($user);
         }
 
