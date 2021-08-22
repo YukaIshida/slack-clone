@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Channel;
+use App\Models\User;
 
 class ChannelSeeder extends Seeder
 {
@@ -18,6 +19,11 @@ class ChannelSeeder extends Seeder
 
         foreach ($channels as $channel) {
             Channel::factory()->create($channel);
+        }
+
+        $users = User::all();
+        foreach ($users as $user) {
+            Channel::create(['dm_channel_name' => '個人DM', 'dm_user_1' => $user->id, 'dm_user_2' => $user->id]);
         }
     }
 }
