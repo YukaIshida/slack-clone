@@ -63,7 +63,9 @@ export default {
         ...mapGetters({
             authUser: 'authUser',
             addChannelModal: 'addChannelModal',
-            sideModal: 'sideModal'
+            sideModal: 'sideModal',
+            // this.usersをthis.$store.getters.dmUsersにマッピングさせる
+            users: 'dmUsers',
         })
     },
 
@@ -110,13 +112,7 @@ export default {
                 });
         },
         getDms() {
-            axios.get('/api/dm-channels')
-                .then(response => {
-                    this.users = response.data;
-                })
-                .catch(errors => {
-                    this.errors = errors.response.data.errors;
-                });
+            this.$store.dispatch('fetchDmUsers');
         },
         showSideModal() {
             this.$store.dispatch('updateSideModalAction', true);
@@ -130,7 +126,6 @@ export default {
 
     data() {
         return {
-            users: [],
             channels: [],
             errors: '',
         }
