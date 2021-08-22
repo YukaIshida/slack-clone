@@ -15,7 +15,7 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('channel_id')->comment('送信者のuid-受信者のuid or 受信者のuid-送信者のuid');
+            $table->bigInteger('channel_id');
             $table->string('user')->comment('送信者のemail');
             $table->text('content')->comment('メッセージ')->nullable();
             $table->timestamps();

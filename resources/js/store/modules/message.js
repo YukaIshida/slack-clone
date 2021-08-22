@@ -55,8 +55,8 @@ const actions = {
             .catch(errors => {
             });
     },
-    getChannelId({commit}, dmChannelName) {
-        axios.get('/api/dm-channel?dm_channel_name=' + dmChannelName)
+    getChannelId({commit}, data) {
+        axios.post('/api/dm-channel', data)
             .then(response => {
                 commit('setChannelId', response.data);
                 axios.get('/api/messages?channel_id=' + response.data)

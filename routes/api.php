@@ -10,7 +10,8 @@ use App\Http\Controllers\DmChannelController;
 
 Route::middleware('auth:api')->group(function(){
     Route::get('auth-user', [AuthUserController::class, 'show']);
-    Route::get('dm-channel', [DmChannelController::class, '__invoke']);
+    Route::post('dm-channel', [DmChannelController::class, '__invoke']);
+    Route::get('dm-channels', [DmChannelController::class, 'index']);
     Route::get('/user', function (Request $request) {
         return $request->user();
     });

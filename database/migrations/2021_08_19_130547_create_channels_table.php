@@ -17,6 +17,8 @@ class CreateChannelsTable extends Migration
             $table->id();
             $table->string('channel_name')->nullable();
             $table->string('dm_channel_name')->nullable();
+            $table->bigInteger('dm_user_1')->nullable()->comment('ユーザーIDが大きい方のDMユーザー');
+            $table->bigInteger('dm_user_2')->nullable()->comment('ユーザーIDが小さい方のDMユーザー');
             $table->timestamps();
         });
     }

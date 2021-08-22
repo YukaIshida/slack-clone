@@ -72,9 +72,15 @@ export default {
             this.$store.dispatch('setMessagesAction', []);
 
             if (this.authUser.data.user_id > user.data.user_id) {
-                this.$store.dispatch('getChannelId', this.authUser.data.user_id + "-" + user.data.user_id);
+                this.$store.dispatch('getChannelId', 
+                    {dm_channel_name: this.authUser.data.user_id + "-" + user.data.user_id,
+                    dm_user_1: this.authUser.data.user_id,
+                    dm_user_2: user.data.user_id});
             } else {
-                this.$store.dispatch('getChannelId', user.data.user_id + "-" + this.authUser.data.user_id);
+                this.$store.dispatch('getChannelId', 
+                    {dm_channel_name: user.data.user_id + "-" + this.authUser.data.user_id,
+                    dm_user_1: user.data.user_id,
+                    dm_user_2: this.authUser.data.user_id});
             }
 
             this.$store.dispatch('setChannelNameAction', user.data.attributes.email);
