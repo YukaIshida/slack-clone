@@ -26,11 +26,8 @@
         </div>
 
         <div class="mt-5 flex justify-between items-center relative">
-            <div class="font-bold opacity-50 text-lg">ダイレクトメッセージ</div>
+            <div class="font-bold opacity-50 text-lg">DM</div>
             <PlusCircle @click.native="openDmSearch" />
-            <div class="absolute w-36 rounded bg-white text-black -top-10 left-16 py-2" @click.stop>
-                <div class="text-sm hover:bg-blue-700 hover:text-white text-center">ダイレクトメッセージを開く</div>
-            </div>
         </div>
         <div class="mt-2 flex items-center" v-for="user in users" :key="'user' + user.data.user_id">
             <span class="bg-yellow-400 rounded-full w-3 h-3 mr-2"></span>
