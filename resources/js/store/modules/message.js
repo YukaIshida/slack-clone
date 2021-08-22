@@ -50,6 +50,7 @@ const actions = {
         
         axios.post('/api/messages', submitArray)
             .then(response => {
+                // pusherでデータベースの更新を検知して、Message.vueがメッセージを更新するためここでの処理は不要
             })
             .catch(errors => {
             });
