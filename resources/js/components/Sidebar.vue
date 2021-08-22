@@ -79,7 +79,6 @@ export default {
 
             this.$store.dispatch('setChannelNameAction', user.data.attributes.email);
             this.$store.dispatch('setPlaceholderAction', user.data.attributes.email + "へのメッセージ");
-            this.$store.dispatch('fetchMessages');
             if (this.$route.path != '/home') {
                 this.$router.push('/home');
             }

@@ -36,7 +36,6 @@ const actions = {
     fetchMessages({commit, state}) {
         axios.get('/api/messages?channel_id=' + state.channel_id)
         .then(response => {
-            this.messages = response.data;
             commit('setMessages', response.data);
         })
         .catch(errors => {
@@ -45,7 +44,6 @@ const actions = {
     },
     sendMessage({commit, state, rootState}, message) {
         let submitArray = {};
-        console.log(state.channel_id);
         submitArray['channel_id'] = state.channel_id;
         submitArray['user'] = rootState.User.user.data.attributes.email;
         submitArray['content'] = message;
@@ -60,9 +58,17 @@ const actions = {
         axios.get('/api/dm-channel?dm_channel_name=' + dmChannelName)
             .then(response => {
                 commit('setChannelId', response.data);
+                axios.get('/api/messages?channel_id=' + response.data)
+                    .then(res => {
+                        commit('setMessages', res.data);
+                    })
+                    .catch(errors => {
+                        console.log('Unable to fetch messages');
+                    }); 
             })
             .catch(errors => {
             });
+
     },
 };
 
