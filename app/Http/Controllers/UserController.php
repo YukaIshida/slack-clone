@@ -11,7 +11,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
         // ToDo ポリシー追加?(Passportと併用出来るかテストする)
-        $users = User::all();
+        if ($request->has('searchKey') && !empty($request->input('searchKey'))) {
+            $users = User::where('name', 'like', "%" . $request->input('searchKey') . "%")->get();
+        } else {
+            $users = User::all();
+        }
         return new UserCollection($users);
     }
 
