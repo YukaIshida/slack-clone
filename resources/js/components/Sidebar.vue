@@ -56,7 +56,7 @@ export default {
 
     mounted() {
         this.getchannels();
-        this.getUsers();
+        this.getDms();
     },
 
     computed: {
@@ -109,10 +109,10 @@ export default {
                     this.errors = errors.response.data.errors;
                 });
         },
-        getUsers() {
-            axios.get('/api/users')
+        getDms() {
+            axios.get('/api/dm-channels')
                 .then(response => {
-                    this.users = response.data.data;
+                    this.users = response.data;
                 })
                 .catch(errors => {
                     this.errors = errors.response.data.errors;

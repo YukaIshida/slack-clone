@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Channel;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\UserResource;
 
 class DmChannelController extends Controller
 {
@@ -24,16 +27,35 @@ class DmChannelController extends Controller
         return $channel_id;
     }
 
-    public function index(Request $request)
+    public function index()
     {
         // ToDo バリデーションとポリシー（？）追加
         $two_weeks_ago = date("Y-m-d H:i:s",strtotime("-2 week"));;
         $channels = Channel::query()
-                ->whereHas('messages', function ($query) use ($two_weeks_ago) {
-                    $query->where('updated_at', '>=', $two_weeks_ago);
+            ->where(function ($query) use ($two_weeks_ago) {
+                    $query->whereHas('messages', function ($query) use ($two_weeks_ago) {
+                        $query->where('updated_at', '>=', $two_weeks_ago);
+                    })
+                    ->where('dm_user_1', Auth::user()->id)
+                    ->OrWhere('dm_user_2', Auth::user()->id);
                 })
-                ->get();
+            ->OrWhere(function ($query) {
+                $query->where('dm_user_1', Auth::user()->id)
+                ->Where('dm_user_2', Auth::user()->id);
+            })
+            ->get();
 
-        return $channels;
+        $dmUsers = [];
+        foreach($channels as $channel) {
+            if ($channel->dm_user_1 == Auth::user()->id) {
+                $user = User::where('id', $channel->dm_user_2)->get()->first();
+            } else {
+                $user = User::where('id', $channel->dm_user_1)->get()->first();
+            }
+
+            $dmUsers[] = new UserResource($user);
+        }
+
+        return json_encode($dmUsers);
     }    
 }
