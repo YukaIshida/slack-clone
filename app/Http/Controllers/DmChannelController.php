@@ -31,17 +31,7 @@ class DmChannelController extends Controller
     {
         // ToDo バリデーションとポリシー（？）追加
         $two_weeks_ago = date("Y-m-d H:i:s",strtotime("-2 week"));;
-        $channels = Channel::query()
-            ->where(function ($query) use ($two_weeks_ago) {
-                    $query->whereHas('messages', function ($query) use ($two_weeks_ago) {
-                        $query->where('updated_at', '>=', $two_weeks_ago);
-                    })
-                    ->where(function ($query) {
-                        $query->where('dm_user_1', Auth::user()->id)
-                        ->OrWhere('dm_user_2', Auth::user()->id);
-                    });
-                })
-            ->get();
+        $channels = Channel::getRecentlyTalkedChannels($two_weeks_ago);
 
         $dmUsers = [];
         $dmUsers[] = new UserResource(Auth::user());
