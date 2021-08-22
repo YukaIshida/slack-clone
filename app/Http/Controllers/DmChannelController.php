@@ -36,12 +36,14 @@ class DmChannelController extends Controller
                     $query->whereHas('messages', function ($query) use ($two_weeks_ago) {
                         $query->where('updated_at', '>=', $two_weeks_ago);
                     })
-                    ->where('dm_user_1', Auth::user()->id)
-                    ->OrWhere('dm_user_2', Auth::user()->id);
+                    ->where(function ($query) {
+                        $query->where('dm_user_1', Auth::user()->id)
+                        ->OrWhere('dm_user_2', Auth::user()->id);
+                    });
                 })
             ->OrWhere(function ($query) {
                 $query->where('dm_user_1', Auth::user()->id)
-                ->Where('dm_user_2', Auth::user()->id);
+                ->where('dm_user_2', Auth::user()->id);
             })
             ->get();
 
