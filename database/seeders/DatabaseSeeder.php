@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
         $this->call(ChannelSeeder::class);
+        $this->call(MessageSeeder::class);
+        $this->call(ChannelUserSeeder::class);
     }
 }
