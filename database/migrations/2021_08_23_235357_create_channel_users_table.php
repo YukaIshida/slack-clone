@@ -17,6 +17,7 @@ class CreateChannelUsersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('channel_id');
+            $table->index(['user_id', 'channel_id']);
             $table->timestamps();
         });
     }
