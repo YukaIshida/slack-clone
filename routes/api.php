@@ -7,6 +7,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DmChannelController;
+use App\Http\Controllers\ChannelUserController;
 
 Route::middleware('auth:api')->group(function(){
     Route::get('auth-user', [AuthUserController::class, 'show']);
@@ -20,5 +21,6 @@ Route::middleware('auth:api')->group(function(){
         '/messages' => MessageController::class,
         '/channels' => ChannelController::class,
         '/users' => UserController::class,
+        '/channel-users' => ChannelUserController::class,
     ]);
 });

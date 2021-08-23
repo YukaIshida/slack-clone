@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\ChannelUser;
 
 class ChannelResource extends JsonResource
 {
@@ -18,6 +19,7 @@ class ChannelResource extends JsonResource
             'data' => [
                 'type' => 'channel',
                 'channel_id' => $this->id,
+                'join_users' => ChannelUser::joiningUsers($this->id),
                 'attributes'=> [
                     'channel_name' => $this->channel_name,
                 ]

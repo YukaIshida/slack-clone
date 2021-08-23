@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +19,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/test', [TestController::class, '__invoke']);
 
 Route::get('/{any}', [App\Http\Controllers\AppController::class, 'index'])->where('any', '.*');

@@ -29,11 +29,20 @@
             </div>
             <div class="px-4">
                 <div
-                    class="w-full border-b py-2 text-base font-bold"
+                    class="w-full border-b py-2 flex items-center justify-between font-bold"
                     v-for="channel in channels"
                     :key="channel.data.channel_id"
-                >
-                    <span @click="channelMessage(channel)"># {{ channel.data.attributes.channel_name }}</span>
+                >   
+                    <div>
+                        <div @click="channelMessage(channel)" class="text-base"># {{ channel.data.attributes.channel_name }}</div>
+                        <div v-if="channel.data.join_users.includes(authUser.data.user_id)" class="text-xs text-green-700">✔︎参加中</div>
+                    </div>
+                    <div v-if="!channel.data.join_users.includes(authUser.data.user_id)" class="text-sm pr-6">
+                        <button type="button" 
+                        class="bg-green-700 text-white rounded py-1 px-2" 
+                        @click="joinChannel(channel, authUser.data.user_id)">
+                        参加する</button>
+                    </div>
                 </div>
             </div>
         </main>
@@ -41,6 +50,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
     name: "ChannelSearch",
@@ -53,6 +63,12 @@ export default {
             channels: [],
 
         };
+    },
+
+    computed: {
+        ...mapGetters({
+            authUser: 'authUser',
+        })
     },
 
     methods: {
@@ -87,6 +103,15 @@ export default {
                 this.$router.push('/home');
             }
         },
+        joinChannel(channel, user_id) {
+            axios.post('/api/channel-users', {user_id: user_id, channel_id: channel.data.channel_id})
+                .then(response => {
+                    this.channelMessage(channel);
+                })
+                .catch(error => {
+                    console.log('unable to join the channel');
+                });
+        }
     }
 
 }
