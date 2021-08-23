@@ -37,7 +37,13 @@
                         <div @click="channelMessage(channel)" class="text-base"># {{ channel.data.attributes.channel_name }}</div>
                         <div v-if="channel.data.join_users.includes(authUser.data.user_id)" class="text-xs text-green-700">✔︎参加中</div>
                     </div>
-                    <div v-if="!channel.data.join_users.includes(authUser.data.user_id)" class="text-sm pr-6">
+                    <div v-if="channel.data.join_users.includes(authUser.data.user_id)" class="text-sm pr-6">
+                        <button type="button" 
+                        class="bg-gray-50 text-black rounded py-1 px-2" 
+                        @click="exitChannel(channel.data.channel_id, authUser.data.user_id)">
+                        退出する</button>
+                    </div>
+                    <div v-else class="text-sm pr-6">
                         <button type="button" 
                         class="bg-green-700 text-white rounded py-1 px-2" 
                         @click="joinChannel(channel, authUser.data.user_id)">
@@ -110,6 +116,25 @@ export default {
                 })
                 .catch(error => {
                     console.log('unable to join the channel');
+                });
+        },
+        exitChannel(channel_id, user_id) {
+            alert('ほんまに退出すんのやな？');
+            axios.delete('/api/channel-users', {data: {user_id: user_id, channel_id: channel_id}})
+                .then(response => {
+                    this.getAllChannels();
+                })
+                .catch(error => {
+                    console.log('unable to join the channel');
+                });
+        },
+        getAllChannels() {
+            axios.get('/api/channels')
+                .then(response => {
+                    this.channels = response.data.data;
+                })
+                .catch(error => {
+                    console.log(error.response);
                 });
         }
     }

@@ -13,6 +13,7 @@ Route::middleware('auth:api')->group(function(){
     Route::get('auth-user', [AuthUserController::class, 'show']);
     Route::post('dm-channel', [DmChannelController::class, '__invoke']);
     Route::get('dm-channels', [DmChannelController::class, 'index']);
+    Route::delete('channel-users', [ChannelUserController::class, 'destroy']);
     Route::get('/user', function (Request $request) {
         return $request->user();
     });

@@ -9,7 +9,7 @@ class TestController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $user = ChannelUser::joining_users(1);
+        $user = ChannelUser::joiningUsers(1);
 
         dd($user);
     }
