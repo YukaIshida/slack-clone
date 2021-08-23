@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Channel;
+use App\Models\ChannelUser;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -76,6 +77,10 @@ class RegisterController extends Controller
         $channel->dm_user_1 = $user->id;
         $channel->dm_user_2 = $user->id;
         $channel->save();
+
+        // チャンネルid12:general, 13:randomにはデフォルトで参加する
+        ChannelUser::create(['channel_id' => 12, 'user_id' => $user->id]);
+        ChannelUser::create(['channel_id' => 13, 'user_id' => $user->id]);
 
         return $user;
     }
