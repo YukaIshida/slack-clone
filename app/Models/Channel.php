@@ -15,6 +15,11 @@ class Channel extends Model
         return $this->hasMany(Message::class);
     }
 
+    public function channelUsers()
+    {
+        return $this->hasMany(ChannelUser::class);
+    }
+
     public static function getRecentlyTalkedChannels($ago1, $ago2)
     {
         $channels = self::query()

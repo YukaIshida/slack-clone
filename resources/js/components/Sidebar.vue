@@ -104,7 +104,7 @@ export default {
             }
         },
         getchannels() {
-            axios.get('/api/channels')
+            axios.get('/api/channels?user_id=' + this.authUser.data.user_id)
                 .then(response => {
                     this.channels = response.data.data;
                 })
