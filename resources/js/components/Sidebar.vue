@@ -67,6 +67,8 @@ export default {
             sideModal: 'sideModal',
             // this.usersをthis.$store.getters.dmUsersにマッピングさせる
             users: 'dmUsers',
+            // this.channelsをthis.$store.getters.joiningChannelsにマッピングさせる
+            channels: 'joiningChannels',
         })
     },
 
@@ -104,13 +106,7 @@ export default {
             }
         },
         getchannels() {
-            axios.get('/api/channels?user_id=' + this.authUser.data.user_id)
-                .then(response => {
-                    this.channels = response.data.data;
-                })
-                .catch(errors => {
-                    this.errors = errors.response.data.errors;
-                });
+            this.$store.dispatch('fetchJoiningChannels');
         },
         getDms() {
             this.$store.dispatch('fetchDmUsers');
@@ -127,7 +123,6 @@ export default {
 
     data() {
         return {
-            channels: [],
             errors: '',
         }
     },
