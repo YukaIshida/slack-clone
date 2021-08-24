@@ -113,6 +113,7 @@ export default {
             axios.post('/api/channel-users', {user_id: user_id, channel_id: channel.data.channel_id})
                 .then(response => {
                     this.channelMessage(channel);
+                    this.$store.dispatch('fetchJoiningChannels');
                 })
                 .catch(error => {
                     console.log('unable to join the channel');
@@ -123,6 +124,7 @@ export default {
             axios.delete('/api/channel-users', {data: {user_id: user_id, channel_id: channel_id}})
                 .then(response => {
                     this.getAllChannels();
+                    this.$store.dispatch('fetchJoiningChannels');
                 })
                 .catch(error => {
                     console.log('unable to join the channel');
