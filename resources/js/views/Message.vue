@@ -50,7 +50,9 @@ export default {
     mounted() {
         Echo.channel('chat')
             .listen('MessageCreated', (e) => {
-                this.$store.dispatch('fetchMessages');
+                if (e.message.channel_id == this.channel_id) {
+                    this.$store.dispatch('fetchMessages');
+                }
             });
     },
 
