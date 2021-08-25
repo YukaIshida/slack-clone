@@ -21,7 +21,7 @@
                         v-model="message">
                     </textarea>
 
-                    <div class="bg-gray-100 p-2 flex justify-between">
+                    <div class="bg-gray-100 p-2 flex justify-between" v-if="channel_id">
                         <button 
                             class="bg-green-900 text-sm text-white font-bold py-1 px-2 rounded"
                             @click="sendMessage"

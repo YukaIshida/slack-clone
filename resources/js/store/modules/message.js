@@ -2,7 +2,7 @@ const state = {
     channel_name: null,
     messages: [],
     placeholder: '',
-    channel_id: '',
+    channel_id: null,
 };
 
 const getters = {
