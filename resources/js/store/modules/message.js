@@ -42,19 +42,6 @@ const actions = {
             console.log('Unable to fetch messages');
         });    
     },
-    sendMessage({commit, state, rootState}, message) {
-        let submitArray = {};
-        submitArray['channel_id'] = state.channel_id;
-        submitArray['user'] = rootState.User.user.data.attributes.email;
-        submitArray['content'] = message;
-        
-        axios.post('/api/messages', submitArray)
-            .then(response => {
-                // pusherでデータベースの更新を検知して、Message.vueがメッセージを更新するためここでの処理は不要
-            })
-            .catch(errors => {
-            });
-    },
     getChannelId({commit}, data) {
         axios.post('/api/dm-channel', data)
             .then(response => {

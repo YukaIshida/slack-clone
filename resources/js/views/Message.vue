@@ -21,12 +21,13 @@
                         v-model="message">
                     </textarea>
 
-                    <div class="bg-gray-100 p-2">
+                    <div class="bg-gray-100 p-2 flex justify-between">
                         <button 
                             class="bg-green-900 text-sm text-white font-bold py-1 px-2 rounded"
                             @click="sendMessage"
                             >送信
                         </button>
+                        <FileUpload @updateFileInfo="getFileInfo($event)" />
                     </div>
                 </div>
             </div>
@@ -37,6 +38,7 @@
 <script>
 import Avator from '../components/Avator';
 import Header from '../components/Header';
+import FileUpload from '../components/FileUpload';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -44,7 +46,8 @@ export default {
 
     components: {
         Avator,
-        Header
+        Header,
+        FileUpload
     },
 
     mounted() {
@@ -60,7 +63,8 @@ export default {
         ...mapGetters({
             messages: 'messages',
             placeholder: 'placeholder',
-            channel_id: 'channel_id'
+            channel_id: 'channel_id',
+            authUser: 'authUser',
         })
     },
 
@@ -69,13 +73,28 @@ export default {
             // ToDo messageとerrorsだけここに残して残りはVuexに移動
             message: '',
             errors: '',
+            fileInfo: ''
         }
     },
 
     methods: {
         sendMessage() {
-            this.$store.dispatch('sendMessage', this.message);
-            this.message = "";
+            let formData = new FormData();
+            formData.append('channel_id', this.channel_id);
+            formData.append('user', this.authUser.data.attributes.email);
+            formData.append('content', this.message);
+            formData.append('file', this.fileInfo);
+            
+            axios.post('/api/messages', formData)
+                .then(response => {
+                    // pusherでデータベースの更新を検知して、Message.vueがメッセージを更新するためここでの処理は不要
+                })
+                .catch(errors => {
+                });
+                this.message = "";
+        },
+        getFileInfo: function($event)  {
+            this.fileInfo = $event;
         },
     },
 
