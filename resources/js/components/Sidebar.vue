@@ -122,13 +122,9 @@ export default {
             }
         },
         getCacheChannelId() {
-            axios.get('/api/cache?key=channel_id')
+            axios.get('/api/get-channel')
                 .then(response => {
-                    if (response.data) {
-                        this.$store.dispatch('setChannelIdAction', response.data);
-                    } else {
-                        this.$store.dispatch('setChannelIdAction', 12);
-                    }
+                    this.channelMessage(response.data);
                 })
                 .catch(errors => {
                     console.log('Unable to fetch channel_id');

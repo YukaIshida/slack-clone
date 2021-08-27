@@ -15,7 +15,7 @@ Route::middleware('auth:api')->group(function(){
     Route::post('dm-channel', [DmChannelController::class, '__invoke']);
     Route::get('dm-channels', [DmChannelController::class, 'index']);
     Route::delete('channel-users', [ChannelUserController::class, 'destroy']);
-    Route::get('cache', [CacheController::class, 'get']);
+    Route::get('get-channel', [CacheController::class, 'getChannel']);
     Route::post('cache', [CacheController::class, 'set']);
     Route::get('/user', function (Request $request) {
         return $request->user();
