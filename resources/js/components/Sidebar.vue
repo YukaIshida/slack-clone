@@ -58,6 +58,7 @@ export default {
     mounted() {
         this.getchannels();
         this.getDms();
+        this.getCacheChannelId();
     },
 
     computed: {
@@ -69,6 +70,7 @@ export default {
             users: 'dmUsers',
             // this.channelsをthis.$store.getters.joiningChannelsにマッピングさせる
             channels: 'joiningChannels',
+            channel_id: 'channel_id'
         })
     },
 
@@ -118,7 +120,20 @@ export default {
             if (this.$route.path != '/dm-search') {
                 this.$router.push('/dm-search');
             }
-        }
+        },
+        getCacheChannelId() {
+            axios.get('/api/cache?key=channel_id')
+                .then(response => {
+                    if (response.data) {
+                        this.$store.dispatch('setChannelIdAction', response.data);
+                    } else {
+                        this.$store.dispatch('setChannelIdAction', 12);
+                    }
+                })
+                .catch(errors => {
+                    console.log('Unable to fetch channel_id');
+                });  
+        },
     },
 
     data() {

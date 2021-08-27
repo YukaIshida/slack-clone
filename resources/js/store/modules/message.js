@@ -31,7 +31,13 @@ const actions = {
         commit('setPlaceholder', placeholder);  
     },
     setChannelIdAction({commit}, channelId) {
-        commit('setChannelId', channelId);  
+        commit('setChannelId', channelId);
+        axios.post('/api/cache', {'key': 'channel_id', 'value': channelId})
+            .then(response => {
+            })
+            .catch(errors => {
+                console.log('Unable to fetch channel_id');
+            });  
     },
     fetchMessages({commit, state}) {
         axios.get('/api/messages?channel_id=' + state.channel_id)
