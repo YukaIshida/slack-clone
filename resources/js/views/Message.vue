@@ -20,7 +20,7 @@
                         :placeholder="placeholder" 
                         v-model="message">
                     </textarea>
-                    <UploadableImage image-width="200" image-height="200" location="cover" />
+                    <img v-show="uploadedImage" :src="uploadedImage" class="upload-image" />
                     
                     <div class="bg-gray-100 p-2 flex justify-between" v-if="channel_id">
                         <button 
