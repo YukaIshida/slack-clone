@@ -20,7 +20,7 @@
                         :placeholder="placeholder" 
                         v-model="message">
                     </textarea>
-                    <img v-show="uploadedImage" :src="uploadedImage" class="upload-image" />
+                    <UploadableImage image-width="200" image-height="200" location="cover" />
                     
                     <div class="bg-gray-100 p-2 flex justify-between" v-if="channel_id">
                         <button 
@@ -39,7 +39,7 @@
 <script>
 import Avator from '../components/Avator';
 import Header from '../components/Header';
-import FileUpload from '../components/FileUpload';
+import UploadableImage from '../components/UploadableImage';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -48,7 +48,7 @@ export default {
     components: {
         Avator,
         Header,
-        FileUpload
+        UploadableImage
     },
 
     mounted() {

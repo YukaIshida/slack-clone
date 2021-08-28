@@ -1,5 +1,5 @@
 <template>
-    <div class="w-1/5 bg-gray-800 text-white pt-3 px-4 overflow-hidden">
+    <div class="w-1/5 bg-gray-800 text-white pt-3 px-4 overflow-y-scroll">
         <div class="flex justify-between items-start">
             <h1 class="font-semibold text-xl leading-tight">Slack Clone</h1>
             <Notification />
@@ -10,30 +10,32 @@
             {{ authUser.data.attributes.email }}
         </div>
 
-        <div class="mt-5 flex justify-between items-center">
-            <div class="font-bold opacity-50 text-lg">チャンネル</div>
-            <!-- modal -->
-            <SideModal />
-            <AddChannelModal @parentGetchannels="getchannels" />
-            <PlusCircle @click.native="showSideModal" />
-        </div>
-        <div
-            class="opacity-50 mt-1"
-            v-for="channel in channels"
-            :key="channel.data.channel_id"
-        >
-            <span @click="channelMessage(channel)"># {{ channel.data.attributes.channel_name }}</span>
-        </div>
+        <div class="flex-grow overflow-y-scroll">
+            <div class="mt-5 flex justify-between items-center">
+                <div class="font-bold opacity-50 text-lg">チャンネル</div>
+                <!-- modal -->
+                <SideModal />
+                <AddChannelModal @parentGetchannels="getchannels" />
+                <PlusCircle @click.native="showSideModal" />
+            </div>
+            <div
+                class="opacity-50 mt-1"
+                v-for="channel in channels"
+                :key="channel.data.channel_id"
+            >
+                <span @click="channelMessage(channel)"># {{ channel.data.attributes.channel_name }}</span>
+            </div>
 
-        <div class="mt-5 flex justify-between items-center relative">
-            <div class="font-bold opacity-50 text-lg">DM</div>
-            <PlusCircle @click.native="openDmSearch" />
-        </div>
-        <div class="mt-2 flex items-center" v-for="user in users" :key="'user' + user.data.user_id">
-            <span class="bg-yellow-400 rounded-full w-3 h-3 mr-2"></span>
-            <span class="opacity-50" @click="directMessage(user)">{{ user.data.attributes.name }}
-                <span v-if="user.data.user_id == authUser.data.user_id">(自分)</span>
-            </span>
+            <div class="mt-5 flex justify-between items-center relative">
+                <div class="font-bold opacity-50 text-lg">DM</div>
+                <PlusCircle @click.native="openDmSearch" />
+            </div>
+            <div class="mt-2 flex items-center" v-for="user in users" :key="'user' + user.data.user_id">
+                <span class="bg-yellow-400 rounded-full w-3 h-3 mr-2"></span>
+                <span class="opacity-50" @click="directMessage(user)">{{ user.data.attributes.name }}
+                    <span v-if="user.data.user_id == authUser.data.user_id">(自分)</span>
+                </span>
+            </div>
         </div>
     </div>
 </template>
